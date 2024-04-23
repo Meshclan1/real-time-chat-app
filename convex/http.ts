@@ -1,4 +1,4 @@
-// HTTP endpoint connects the Clerk and Convex sides together. It accepts what the webhook sends and calls the 'create' function.
+// HTTP endpoint(s) connects Clerk and Convex. It accepts what is sent from the webhook & will call the 'create' function.
 
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
