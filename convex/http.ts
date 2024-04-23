@@ -1,4 +1,4 @@
-// HTTP connects the Clerk and Convex sides together
+// HTTP endpoint connects the Clerk and Convex sides together. It accepts what the webhook sends and calls the 'create' function.
 
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
@@ -24,6 +24,7 @@ const validatePayload = async (
     return event;
   } catch (error) {
     console.error("Clerk webhook request could not be verified");
+    return;
   }
 };
 
@@ -42,7 +43,7 @@ const handleClerkWebhook = httpAction(async (ctx, req) => {
       });
 
       if (user) {
-        console.log(`updating user ${event.data.id} with: ${event.data} `);
+        console.log(`Updating user ${event.data.id} with: ${event.data} `);
       }
 
     case "user.updated": {
@@ -76,19 +77,21 @@ http.route({
 });
 
 // Define additional routes
-http.route({
-  path: "/getMessagesByAuthor",
-  method: "GET",
-  handler: getByAuthor,
-});
+
+// http.route({
+//   path: "/getMessagesByAuthor",
+//   method: "GET",
+//   handler: getByAuthor,
+// });
 
 // Define a route using a path prefix
-http.route({
-  // Will match /getAuthorMessages/User+123 and /getAuthorMessages/User+234 etc.
-  pathPrefix: "/getAuthorMessages/",
-  method: "GET",
-  handler: getByAuthorPathSuffix,
-});
+
+// http.route({
+//   // Will match /getAuthorMessages/User+123 and /getAuthorMessages/User+234 etc.
+//   pathPrefix: "/getAuthorMessages/",
+//   method: "GET",
+//   handler: getByAuthorPathSuffix,
+// });
 
 // Convex expects the router to be the default export of `convex/http.js`.
 export default http;
