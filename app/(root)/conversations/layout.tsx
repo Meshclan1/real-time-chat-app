@@ -1,9 +1,10 @@
+import SidebarWrapper from "@/components/shared/sidebar/SidebarWrapper";
 import React from "react";
 
 type Props = React.PropsWithChildren<{}>;
 
 const ConversationsLayout = ({ children }: Props) => {
-  return <div>{children}</div>;
+  return <SidebarWrapper> {children}</SidebarWrapper>;
 };
 
 export default ConversationsLayout;
