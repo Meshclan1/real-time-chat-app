@@ -1,6 +1,7 @@
 // usePathname notes the address of the webpage we're on
 
 import { MessageSquare } from "lucide-react";
+import { Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
@@ -18,7 +19,7 @@ export const useNavigation = () => {
       {
         name: "Friends",
         href: "/friends",
-        icon: <MessageSquare />,
+        icon: <Users />,
         active: pathname.startsWith("/friends"),
       },
     ],
