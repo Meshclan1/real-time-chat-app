@@ -11,9 +11,13 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useConversation } from "@/hooks/useConversation";
 
 const MobileNav = () => {
   const paths = useNavigation();
+  const isActive = useConversation();
+
+  if (isActive) return null;
 
   return (
     <Card className="fixed bottom-4 w-[calc(100vw-32px)] flex items-center h-16 p-2 lg:hidden">
