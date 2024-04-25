@@ -1,4 +1,6 @@
 // Convex Side
+// requests table schema. v.id("") references the id of another table
+//
 
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
@@ -12,4 +14,11 @@ export default defineSchema({
   })
     .index("by_email", ["email"])
     .index("by_clerkId", ["clerkId"]),
+
+  requests: defineTable({
+    sender: v.id("users"),
+    receiver: v.id("users"),
+  })
+    .index("by_receiver", ["receiver"])
+    .index("by_receiver_sender", ["receiver", "sender"]),
 });
