@@ -1,10 +1,12 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 
-const ConversationContainer = () => {
+type Props = React.PropsWithChildren<{}>;
+
+const ConversationContainer = ({ children }: Props) => {
   return (
-    <Card className="hidden lg:flex h-full w-full p-2 items-center justify-center bg-secondary text-secondary-foreground">
-      Select/Start a conversation to get Started
+    <Card className="w-full h-[calc(100svh-32px)] lg:h-full p-2 flex flex-col gap-2">
+      {children}
     </Card>
   );
 };

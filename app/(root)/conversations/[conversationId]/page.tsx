@@ -4,7 +4,7 @@ import React from "react";
 type Props = {};
 
 const ConversationPage = (props: Props) => {
-  return <ConversationContainer></ConversationContainer>;
+  return <ConversationContainer>Conversation Page</ConversationContainer>;
 };
 
 export default ConversationPage;
