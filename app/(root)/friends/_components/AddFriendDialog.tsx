@@ -4,10 +4,29 @@ import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
-import { Tooltip, TooltipTrigger } from "@radix-ui/react-tooltip";
 import { UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  TooltipContent,
+  Tooltip,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  DialogContent,
+  Dialog,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormControl,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 type Props = React.PropsWithChildren<{}>;
 
@@ -26,6 +45,8 @@ const AddFriendDialog = (props: Props) => {
     },
   });
 
+  const handleSubmit = () => {};
+
   return (
     <Dialog>
       <Tooltip>
@@ -36,7 +57,38 @@ const AddFriendDialog = (props: Props) => {
             </DialogTrigger>
           </Button>
         </TooltipTrigger>
+        <TooltipContent>
+          <p>Add Friend</p>
+        </TooltipContent>
       </Tooltip>
+
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add Friend</DialogTitle>
+          <DialogDescription>
+            Send a request to connect with your friends
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-8"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Email..." {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            ></FormField>
+          </form>
+        </Form>
+      </DialogContent>
     </Dialog>
   );
 };
