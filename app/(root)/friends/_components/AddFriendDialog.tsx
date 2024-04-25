@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -85,7 +86,12 @@ const AddFriendDialog = (props: Props) => {
                   </FormControl>
                 </FormItem>
               )}
-            ></FormField>
+            />
+            <DialogFooter>
+              <Button disabled={false} type="submit">
+                Send
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>
