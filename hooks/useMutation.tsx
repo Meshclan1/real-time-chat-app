@@ -14,7 +14,6 @@ export const useMutationState = (mutationToRun: any) => {
       .catch((error) => {
         throw error;
       })
-
       .finally(() => setPending(false));
   };
   return { mutate, pending };

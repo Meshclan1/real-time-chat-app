@@ -1,6 +1,6 @@
 // Clerk Side (WEBHOOK)
 
-import { mutation, internalQuery } from "./_generated/server";
+import { mutation } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 import { getUserByClerkId } from "./_utils";
 import { currentUser } from "@clerk/nextjs/dist/types/server";
@@ -40,7 +40,8 @@ export const create = mutation({
       .query("requests")
       .withIndex("by_receiver_sender", (q) =>
         q.eq("receiver", receiver._id).eq("sender", currentUser._id)
-      );
+      )
+      .unique();
 
     if (requestAlreadySent) {
       throw new ConvexError("Request already sent");
@@ -50,7 +51,8 @@ export const create = mutation({
       .query("requests")
       .withIndex("by_receiver_sender", (q) =>
         q.eq("receiver", currentUser._id).eq("sender", receiver._id)
-      );
+      )
+      .unique();
 
     if (requestAlreadyReceived) {
       throw new ConvexError("This use has already sent you a request");

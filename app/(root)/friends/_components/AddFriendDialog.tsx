@@ -28,17 +28,23 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-type Props = React.PropsWithChildren<{}>;
+import { useMutationState } from "@/hooks/useMutation";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
+import { ConvexError } from "convex/values";
 
 const addFriendFormSchema = z.object({
   email: z
     .string()
-    .min(1, { message: "This field cannot be empty" })
+    .min(1, { message: "This field cannot be empty." })
     .email("Please enter a valid email"),
 });
 
-const AddFriendDialog = (props: Props) => {
+const AddFriendDialog = () => {
+  const { mutate: createRequest, pending } = useMutationState(
+    api.request.create
+  );
+
   const form = useForm<z.infer<typeof addFriendFormSchema>>({
     resolver: zodResolver(addFriendFormSchema),
     defaultValues: {
@@ -46,7 +52,18 @@ const AddFriendDialog = (props: Props) => {
     },
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (values: z.infer<typeof addFriendFormSchema>) => {
+    await createRequest({ email: values.email })
+      .then(() => {
+        form.reset();
+        toast.success("Friend request sent!");
+      })
+      .catch((error) => {
+        toast.error(
+          error instanceof ConvexError ? error.data : "Unexpected error occured"
+        );
+      });
+  };
 
   return (
     <Dialog>
