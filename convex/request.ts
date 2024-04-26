@@ -3,7 +3,6 @@
 import { mutation } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 import { getUserByClerkId } from "./_utils";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
 
 export const create = mutation({
   args: {
@@ -55,7 +54,7 @@ export const create = mutation({
       .unique();
 
     if (requestAlreadyReceived) {
-      throw new ConvexError("This use has already sent you a request");
+      throw new ConvexError("This user has already sent you a request");
     }
     const request = await ctx.db.insert("requests", {
       sender: currentUser._id,

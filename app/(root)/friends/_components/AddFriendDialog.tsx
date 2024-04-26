@@ -1,3 +1,5 @@
+// dialog box for when we send email requests
+
 "use client";
 
 import React from "react";
@@ -26,6 +28,7 @@ import {
   FormItem,
   FormControl,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMutationState } from "@/hooks/useMutation";
@@ -44,6 +47,9 @@ const AddFriendDialog = () => {
   const { mutate: createRequest, pending } = useMutationState(
     api.request.create
   );
+
+  // this tells form to use the schema from zod
+  // resolver is the type of schema validation
 
   const form = useForm<z.infer<typeof addFriendFormSchema>>({
     resolver: zodResolver(addFriendFormSchema),
@@ -87,6 +93,7 @@ const AddFriendDialog = () => {
             Send a request to connect with your friends
           </DialogDescription>
         </DialogHeader>
+
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -101,6 +108,7 @@ const AddFriendDialog = () => {
                   <FormControl>
                     <Input placeholder="Email..." {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
