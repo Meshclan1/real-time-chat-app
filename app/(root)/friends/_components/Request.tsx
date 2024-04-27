@@ -8,7 +8,7 @@ type Props = {
   email: string;
 };
 
-const Request = (props: Props) => {
+const Request = ({ id, imageUrl, username, email }: Props) => {
   return <div>Request</div>;
 };
 
