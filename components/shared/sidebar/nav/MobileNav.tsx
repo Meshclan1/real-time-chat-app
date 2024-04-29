@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useConversation } from "@/hooks/useConversation";
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
+import { Badge } from "@/components/ui/badge";
 
 const MobileNav = () => {
   const paths = useNavigation();
@@ -36,6 +37,11 @@ const MobileNav = () => {
                       >
                         {path.icon}
                       </Button>
+                      {path.count ? (
+                        <Badge className="absolute left-6 bottom-7">
+                          {path.count}
+                        </Badge>
+                      ) : null}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>{path.name}</p>
