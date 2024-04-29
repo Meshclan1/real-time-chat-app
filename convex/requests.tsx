@@ -34,6 +34,6 @@ export const get = query({
         return { sender, request };
       })
     );
-    return { requestsWithSender };
+    return requestsWithSender;
   },
 });

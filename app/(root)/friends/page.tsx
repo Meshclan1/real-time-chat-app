@@ -9,9 +9,7 @@ import { Loader2 } from "lucide-react";
 import { api } from "@/convex/_generated/api";
 import Request from "./_components/Request";
 
-type Props = {};
-
-const FriendsPage = (props: Props) => {
+const FriendsPage = () => {
   const requests = useQuery(api.requests.get);
 
   return (
@@ -28,7 +26,7 @@ const FriendsPage = (props: Props) => {
                 <Request
                   key={request.request._id}
                   id={request.request._id}
-                  imageUrl={request.sender.imageUrl}
+                  imageUrl={request.sender.imageURL}
                   username={request.sender.username}
                   email={request.sender.email}
                 />

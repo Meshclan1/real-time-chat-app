@@ -7,6 +7,7 @@ export const useMutationState = (mutationToRun: any) => {
 
   const mutate = (payload: any) => {
     setPending(true);
+
     return mutationFn(payload)
       .then((res) => {
         return res;
