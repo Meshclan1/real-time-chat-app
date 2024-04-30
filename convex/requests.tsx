@@ -1,4 +1,4 @@
-// Rendering list of requests we receive with a backend function
+// Rendering list of requests we receive with within the backend function
 
 import { ConvexError } from "convex/values";
 import { query } from "./_generated/server";
