@@ -61,5 +61,6 @@ export const get = query({
         }
       })
     );
+    return conversationWithDetails;
   },
 });
