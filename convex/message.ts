@@ -36,6 +36,7 @@ export const create = mutation({
     if (!membership) {
       throw new ConvexError("You are not a member of this conversation");
     }
+
     const message = await ctx.db.insert("messages", {
       senderId: currentUser._id,
       ...args,
