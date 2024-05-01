@@ -9,6 +9,7 @@ import ConversationContainer from "@/components/shared/conversation/Conversation
 import Header from "./_components/Header";
 import Body from "./_components/_body/Body";
 import ChatInput from "./_components/_input/ChatInput";
+import { useState } from "react";
 
 type Props = {
   params: {
@@ -18,6 +19,10 @@ type Props = {
 
 const ConversationPage = ({ params: { conversationId } }: Props) => {
   const conversation = useQuery(api.conversation.get, { id: conversationId });
+
+  const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
+  const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
+  const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = useState(false);
 
   return conversation === undefined ? (
     <div className="w-full h-full flex items-center justify-center">
@@ -37,6 +42,27 @@ const ConversationPage = ({ params: { conversationId } }: Props) => {
         }
         imageUrl={
           conversation.isGroup ? undefined : conversation.otherMember.imageURL
+        }
+        options={
+          conversation.isGroup
+            ? [
+                {
+                  label: "Leave group",
+                  destructive: false,
+                  onClick: () => setLeaveGroupDialogOpen(true),
+                },
+                {
+                  label: "Delete group",
+                  destructive: true,
+                  onClick: () => setDeleteGroupDialogOpen(true),
+                },
+                {
+                  label: "Remove friend",
+                  destructive: true,
+                  onClick: () => setRemoveFriendDialogOpen(true),
+                },
+              ]
+            : []
         }
       />
       <Body />
