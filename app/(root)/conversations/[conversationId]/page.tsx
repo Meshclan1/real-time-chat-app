@@ -7,9 +7,10 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Loader2 } from "lucide-react";
 import ConversationContainer from "@/components/shared/conversation/ConversationContainer";
 import Header from "./_components/Header";
-import Body from "./_components/_body/Body";
-import ChatInput from "./_components/_input/ChatInput";
+import Body from "./_components/body/Body";
+import ChatInput from "./_components/input/ChatInput";
 import { useState } from "react";
+import RemoveFriendDialog from "./_components/dialogs/RemoveFriendDialog";
 
 type Props = {
   params: {
@@ -34,6 +35,11 @@ const ConversationPage = ({ params: { conversationId } }: Props) => {
     </p>
   ) : (
     <ConversationContainer>
+      <RemoveFriendDialog
+        conversationId={conversationId}
+        open={removeFriendDialogOpen}
+        setOpen={setRemoveFriendDialogOpen}
+      />
       <Header
         name={
           (conversation.isGroup
