@@ -45,6 +45,7 @@ export const get = query({
         return friend;
       })
     );
+    return friends;
   },
 });
 

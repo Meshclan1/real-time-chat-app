@@ -171,7 +171,7 @@ const CreateGroupDialog = (props: Props) => {
                                 }}
                               >
                                 <Avatar className="w-8 h-8">
-                                  <AvatarImage src={friend.imageUrl} />
+                                  <AvatarImage src={friend.imageURL} />
                                   <AvatarFallback>
                                     {friend.username.substring(0, 1)}
                                   </AvatarFallback>
@@ -200,7 +200,7 @@ const CreateGroupDialog = (props: Props) => {
                       >
                         <div className="relative">
                           <Avatar className="w-8 h-8">
-                            <AvatarImage src={friend.imageUrl} />
+                            <AvatarImage src={friend.imageURL} />
                             <AvatarFallback>
                               {friend.username.substring(0, 1)}
                             </AvatarFallback>
