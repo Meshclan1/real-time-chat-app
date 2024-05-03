@@ -3,8 +3,6 @@
 import { mutation } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 import { getUserByClerkId } from "./_utils";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
-import { request } from "http";
 
 export const create = mutation({
   args: {
