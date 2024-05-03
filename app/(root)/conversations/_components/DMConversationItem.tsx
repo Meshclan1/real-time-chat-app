@@ -3,12 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Check, User, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useMutationState } from "@/hooks/useMutation";
-import { api } from "@/convex/_generated/api";
-import { ConvexError } from "convex/values";
-import { toast } from "sonner";
+import { User } from "lucide-react";
 
 type Props = {
   id: Id<"conversations">;
