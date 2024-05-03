@@ -17,6 +17,7 @@ import {
   DialogTrigger,
   DialogContent,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   Tooltip,
@@ -24,15 +25,24 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, X } from "lucide-react";
 import {
   FormField,
   Form,
   FormControl,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
 
 type Props = {};
 
@@ -122,11 +132,103 @@ const CreateGroupDialog = (props: Props) => {
                     <FormControl>
                       <Input placeholder="Group name..." {...field}></Input>
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 );
               }}
             />
+            <FormField
+              control={form.control}
+              name="members"
+              render={() => {
+                return (
+                  <FormItem>
+                    <FormLabel>Friends </FormLabel>
+                    <FormControl>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger
+                          asChild
+                          disabled={unSelectedFriends.length === 0}
+                        >
+                          <Button className="w-full" variant="outline">
+                            Select
+                          </Button>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent className="w-full">
+                          {unSelectedFriends.map((friend) => {
+                            return (
+                              <DropdownMenuCheckboxItem
+                                key={friend._id}
+                                className="flex items-center gap-2 w-full p-2"
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    form.setValue("members", [
+                                      ...members,
+                                      friend._id,
+                                    ]);
+                                  }
+                                }}
+                              >
+                                <Avatar className="w-8 h-8">
+                                  <AvatarImage src={friend.imageUrl} />
+                                  <AvatarFallback>
+                                    {friend.username.substring(0, 1)}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <h4 className="truncate">{friend.username}</h4>
+                              </DropdownMenuCheckboxItem>
+                            );
+                          })}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            {members && members.length ? (
+              <Card className="flex items-center gap-3 overflow-x-auto w-full h-24 p-2 no-scrollbar">
+                {friends
+                  ?.filter((friend) => members.includes(friend._id))
+                  .map((friend) => {
+                    return (
+                      <div
+                        key={friend._id}
+                        className="flex flex-col items-center gap-1"
+                      >
+                        <div className="relative">
+                          <Avatar className="w-8 h-8">
+                            <AvatarImage src={friend.imageUrl} />
+                            <AvatarFallback>
+                              {friend.username.substring(0, 1)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <X
+                            className="text-muted-foreground w-4 h-4 absolute bottom-8 left-7 bg-muted rounded-full cursor-pointer"
+                            onClick={() =>
+                              form.setValue(
+                                "members",
+                                members.filter((id) => id !== friend._id)
+                              )
+                            }
+                          />
+                        </div>
+                        <p className="truncate text-sm">
+                          {friend.username.split(" ")[0]}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </Card>
+            ) : null}
           </form>
+          <DialogFooter>
+            <Button disabled={pending} type="submit">
+              Create
+            </Button>
+          </DialogFooter>
         </Form>
       </DialogContent>
     </Dialog>
