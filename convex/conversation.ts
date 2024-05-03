@@ -21,7 +21,6 @@ export const get = query({
     }
 
     const conversation = await ctx.db.get(args.id);
-
     if (!conversation) {
       throw new ConvexError("Conversation not found");
     }
@@ -32,7 +31,6 @@ export const get = query({
         q.eq("memberId", currentUser._id).eq("conversationId", conversation._id)
       )
       .unique();
-
     if (!membership) {
       throw new ConvexError("You are not a member of this conversation. ");
     }

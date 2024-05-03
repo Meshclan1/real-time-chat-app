@@ -4,9 +4,7 @@ import { getUserByClerkId } from "./_utils";
 import { v } from "convex/values";
 
 export const get = query({
-  args: {
-    id: v.id("conversations"),
-  },
+  args: {},
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
